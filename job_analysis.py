@@ -33,6 +33,7 @@ es_datos = (
     | titulos_norm.str.contains('analista de datos')
     | titulos_norm.str.contains('analista bi')
     | titulos_norm.str.contains('business analyst')
+    | titulos_norm.str.contains('power bi')
 )
 # --- Produccion: relacionado a industrias ---
 es_produccion = (
@@ -74,8 +75,17 @@ CIUDADES = ['Quito', 'Guayaquil', 'Santo Domingo']
 top_ciudades = con_ofertas[con_ofertas.index.isin(CIUDADES)]
 print(top_ciudades)
 
+# =============== Objetivo 3  ===============
+clasificadas = df[df['grupo'] != 'Sin clasificar']
+tabla_puestos = pd.crosstab(clasificadas['title'], clasificadas['grupo'])
+# Exportar a csv
+tabla_puestos.index.name = 'Puesto'
+tabla_puestos.to_csv('tabla_puestos.csv', encoding='utf-8-sig')
+
+
+
 # Dibujamos el bar_chart, ahora con 'ax'
-# ================= GRAFICO 1: por grupo (Objetivo 1) =================
+# =============== GRAFICO 1: por grupo (Objetivo 1) ===============
 ax = top.plot(kind='bar', color='steelblue')
 for pos, num in enumerate(top):
     ax.text(pos, num+1, str(num), ha='center', fontsize=10)
@@ -86,24 +96,34 @@ ax.set_ylabel('Número de ofertas')
 ax.tick_params(axis='x', rotation=45)
 plt.tight_layout()
 
-# ================= GRAFICO 2: por ciudad (Objetivo 2) =================
+# =============== GRAFICO 2: por ciudad (Objetivo 2) ===============
 ax2 = top_ciudades.plot(
     kind='bar',
     stacked=True, # <--- barras apiladas
     color=['steelblue', 'orange', 'mediumseagreen']
 ) # Aqui podemos poner top_ciudades o con_ofertas
 
-for contenedor in ax2.containers:
-    ax2.bar_label(contenedor, label_type='center', fontsize=10)
+for contenedor in ax2.containers: # type: ignore
+    ax2.bar_label(contenedor, label_type='center', fontsize=10) # type: ignore
 ax2.set_title('Ofertas clasificadas por ciudad')
 ax2.set_xlabel('Ciudad')
 ax2.set_ylabel('Número de ofertas')
 ax2.tick_params(axis='x', rotation=45)
 plt.tight_layout()
 
-# ================= AL FINAL: mostrar TODAS las ventanas =================
+# =============== AL FINAL: mostrar TODAS las ventanas ===============
 plt.show()
 
-''' Objetivo: Buscar que puestos se estan buscando con mas frecuencia '''
-''' Objetivo 2: Hacer que cuente por ciudad'''
-'''Objetivo 3: '''
+
+
+
+''' Objetivo: Buscar que puestos se estan buscando con mas frecuencia ''' "Listo ✅"
+''' Objetivo 2: Hacer que cuente por ciudad'''  "Listo ✅"
+''' Objetivo 3: Ver como tablas que puesto, ver tabla combinada los titulos que se estan filtrando''' "Listo ✅"
+''' Limpieza y exportacion de datos limpios para powerbi'''
+''' Hacer ML de hacia donde se van a mover la ofertas en los proximos 3 meses'''
+''' Por Grupo, por Ofertas, por Ciudad'''
+""" Saber si aun es recomendable aplicar para analista de datos (Grafico)"""
+
+# Sistema de analisis de datos: Pregunta -> Recoleccion Datos -> Limpieza de datos -> Exploración (Herramientas SQL, Python, Excel) -> 
+# Interroga (Agrupación) -> Presentación -> Verifica (La muestra)
