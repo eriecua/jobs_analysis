@@ -123,7 +123,6 @@ plt.show()
 ''' Limpieza y exportacion de datos limpios para powerbi'''
 ''' Hacer ML de hacia donde se van a mover la ofertas en los proximos 3 meses'''
 ''' Por Grupo, por Ofertas, por Ciudad'''
-""" Saber si aun es recomendable aplicar para analista de datos (Grafico)"""
 
 # Sistema de analisis de datos: Pregunta -> Recoleccion Datos -> Limpieza de datos -> Exploración (Herramientas SQL, Python, Excel) -> 
 # Interroga (Agrupación) -> Presentación -> Verifica (La muestra)
